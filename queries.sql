@@ -23,3 +23,6 @@ SELECT * FROM animals WHERE name NOT IN ('Gabumon');
 
 -- Query 8: Find all animals with a weight between 10.4kg and 17.3kg (including the animals with weights equal to precisely 10.4kg or 17.3kg)
 SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
+
+
+-- Branch database-transactions

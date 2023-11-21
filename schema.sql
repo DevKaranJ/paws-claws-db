@@ -9,3 +9,8 @@ CREATE TABLE animals (
   neutered BOOLEAN,
   weight_kg DECIMAL
 );
+
+-- Branch database-transactions
+-- Add the "species" column to the "animals" table
+ALTER TABLE animals
+ADD species VARCHAR(255);
