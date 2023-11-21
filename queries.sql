@@ -25,4 +25,33 @@ SELECT * FROM animals WHERE name NOT IN ('Gabumon');
 SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
 
 
--- Branch database-transactions
+-- Branch database-transactions Queries
+-- Query 1: How many animals are there?
+SELECT COUNT(*) AS total_animals
+FROM animals;
+
+-- Query 2: How many animals have never tried to escape?
+SELECT COUNT(*) AS non_escape_animals
+FROM animals
+WHERE escape_attempts = 0;
+
+-- Query 3: What is the average weight of animals?
+SELECT AVG(weight) AS average_weight
+FROM animals;
+
+-- Query 4: Who escapes the most, neutered or not neutered animals?
+SELECT neutered_status, COUNT(*) AS escape_count
+FROM animals
+WHERE escape_attempts > 0
+GROUP BY neutered_status;
+
+-- Query 5: What is the minimum and maximum weight of each type of animal?
+SELECT animal_type, MIN(weight) AS min_weight, MAX(weight) AS max_weight
+FROM animals
+GROUP BY animal_type;
+
+-- Query 6: What is the average number of escape attempts per animal type of those born between 1990 and 2000?
+SELECT animal_type, AVG(escape_attempts) AS avg_escape_attempts
+FROM animals
+WHERE birth_year BETWEEN 1990 AND 2000
+GROUP BY animal_type;
