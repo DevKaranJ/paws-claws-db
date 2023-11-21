@@ -17,7 +17,7 @@ INSERT INTO animals (name, date_of_birth, escape_attempts, neutered, weight_kg) 
   ('Blossom', '1998-10-13', 3, true, 17),
   ('Ditto', '2022-05-14', 4, true, 22);
 
--- update the animals table by setting the species column to unspecified.
+-- Transaction 1
 -- Start the transaction
 BEGIN;
 -- Update the animals table, setting the species column to 'unspecified'
@@ -27,4 +27,22 @@ SELECT * FROM animals;
 -- Rollback the transaction
 ROLLBACK;
 -- Verify that the species column went back to the state before the transaction
+SELECT * FROM animals;
+
+-- Transaction 2
+-- Start the transaction
+BEGIN;
+-- Update the species column to 'digimon' for animals with names ending in 'mon'
+UPDATE animals
+SET species = 'digimon'
+WHERE name LIKE '%mon';
+-- Update the species column to 'pokemon' for animals without a species already set
+UPDATE animals
+SET species = 'pokemon'
+WHERE species IS NULL;
+-- Verify the changes
+SELECT * FROM animals;
+-- Commit the transaction
+COMMIT;
+-- Verify that changes persist after commit
 SELECT * FROM animals;
