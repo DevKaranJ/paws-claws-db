@@ -46,3 +46,37 @@ SELECT * FROM animals;
 COMMIT;
 -- Verify that changes persist after commit
 SELECT * FROM animals;
+
+-- Transaction 3
+-- Start the transaction
+BEGIN;
+-- Delete all records in the animals table
+DELETE FROM animals;
+-- Verify that records are deleted within the transaction
+SELECT * FROM animals;
+-- Rollback the transaction
+ROLLBACK;
+-- Verify that all records in the animals table still exist after the rollback
+SELECT * FROM animals;
+
+-- Transaction 4
+-- Start the transaction
+BEGIN;
+-- Delete all animals born after Jan 1st, 2022
+DELETE FROM animals
+WHERE date_of_birth > '2022-01-01';
+-- Create a savepoint
+SAVEPOINT my_savepoint;
+-- Update all animals' weight to be their weight multiplied by -1
+UPDATE animals
+SET weight_kg = weight_kg * -1;
+-- Rollback to the savepoint
+ROLLBACK TO my_savepoint;
+-- Update all animals' weights that are negative to be their weight multiplied by -1
+UPDATE animals
+SET weight_kg = weight_kg * -1
+WHERE weight_kg < 0;
+-- Commit the transaction
+COMMIT;
+
+
